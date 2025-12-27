@@ -1,0 +1,46 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int t[50], n, h, i, j, temp;
+    int arr[50], d[50], sum = 0, k = 0;
+    printf("Enter no. of tracks: ");
+    scanf("%d", &n);
+    printf("Enter track positions: ");
+    for (i = 0; i < n; i++) {
+        scanf("%d", &t[i]);
+    }
+    printf("Enter head position: ");
+    scanf("%d", &h);
+    t[n] = h;
+    n++;
+    for (i = 0; i < n - 1; i++) {
+        for (j = 0; j < n - i - 1; j++) {
+            if (t[j] > t[j + 1]) {
+                temp = t[j];
+                t[j] = t[j + 1];
+                t[j + 1] = temp;
+            }
+        }
+    }
+    for (i = 0; i < n; i++) {
+        if (t[i] == h) {
+            break;
+        }
+    }
+    for (j = i; j < n; j++) {
+        arr[k++] = t[j];
+    }
+    for (j = 0; j < i; j++) {
+        arr[k++] = t[j];
+    }
+    printf("\nTracks traversed\tDifference between tracks\n");
+    for (i = 0; i < k - 1; i++) {
+        d[i] = abs(arr[i + 1] - arr[i]);
+        printf("%d\t\t%d\n", arr[i], d[i]);
+        sum += d[i];
+    }
+    printf("%d\n", arr[k - 1]);
+    printf("\nAverage header movements: %.2f\n", (float)sum / (k - 1));
+    return 0;
+}
