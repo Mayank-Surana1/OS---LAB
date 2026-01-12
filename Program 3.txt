@@ -1,0 +1,41 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+int main() {
+int buf[20], bufsize = 10, in = 0, out = 0, produce, consume, choice = 0;
+while(choice != 3) {
+printf("\n1. PRODUCEN2. CONSUMEN3. EXIT");
+printf("\nEnter your choice: ");
+if(scanf("%d",&choice) != 1) {
+printf("\nInvalid input! Please enter a number.\n");
+while(getchar() != '\n');
+continue;
+}
+switch(choice) {
+case 1:
+printf("Enter the number: ");
+scanf("%d",&produce);
+if((in + 1) % bufsize == out) {
+printf("Buffer is Full\n");
+} else {
+buf[in] = produce;
+in = (in + 1) % bufsize;
+}
+break;
+case 2:
+if(in == out) {
+printf("Buffer is Empty\n");
+} else {
+consume = buf[out];
+printf("Deleted element is %d\n", consume);
+out = (out + 1) % bufsize;
+}
+break;
+case 3:
+printf("Exiting program...\n");
+exit(0);
+default:
+printf("Invalid choice. Please enter 1, 2, or 3.\n");
+}
+}
+}
